@@ -1,0 +1,10 @@
+STATUS Order =>
+
+menunggu konfirmasi
+menunggu pembayaran
+pembayaran di proses
+menunggu pengiriman
+barang dikirim
+barang diterima
+
+<= CLOSED,
