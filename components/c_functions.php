@@ -146,34 +146,6 @@ function editProduct ($data){
     } 
 }
 
-function orderProcess($array, $buyer_id){
-    global $database;
-    $total = 0;
-    $seller_id = $array[0]['user_id'];
-    $order_code = uniqid("ORD_");
-    for ($i=0; $i < count($array); $i++) { 
-         $total += $array[$i]['product_price'] * $array[$i]['qty'];
-    }
-    $make_order = mysqli_query($database, "INSERT INTO tb_orders VALUES (NULL, '$order_code', NOW(), NULL, 'menunggu konfirmasi', $buyer_id, $total, $seller_id)");
-    if($make_order){
-        $order_id = getResult("SELECT order_id FROM tb_orders GROUP BY order_id DESC LIMIT 1")[0]['order_id'];
-    } else {
-        return false;
-    }
-    foreach ($array as $data){
-        $id = $data['product_id'];
-        $qty = $data['qty'];
-        $sub_total = $data['product_price'] * $data['qty'];
-        $ordId = $order_id;
-        $seller_id = $data['user_id'];
-        mysqli_query($database, "INSERT INTO tb_order_detail VALUES ($ordId, $id, $qty, $sub_total, $seller_id, NULL)");
-        if(mysqli_error($database)){
-            return false;
-        }
-    }
-    return true;
-}
-
 function insertImgPayment($data){
     global $database;
     $order_id = $data['order_id'];
@@ -206,4 +178,45 @@ function decreaseStok($order_id){
         $updatedSold = getResult("SELECT * FROM products WHERE product_id = ".$action['product_id'])[0]['sold'] + $action['qty'];
         $doUpdate = mysqli_query($database, "UPDATE products SET stok = $updatedStok, sold = $updatedSold WHERE product_id = ".$action['product_id']);
     }
+}
+function goBackStok($order_id){
+    global $database;
+    $collections = getResult("SELECT * FROM tb_order_detail WHERE order_id = $order_id");
+    foreach ($collections as $action) {
+        $updatedStok = getResult("SELECT * FROM products WHERE product_id = ".$action['product_id'])[0]['stok'] + $action['qty'];
+        $updatedSold = getResult("SELECT * FROM products WHERE product_id = ".$action['product_id'])[0]['sold'] - $action['qty'];
+        $doUpdate = mysqli_query($database, "UPDATE products SET stok = $updatedStok, sold = $updatedSold WHERE product_id = ".$action['product_id']);
+    }
+}
+
+function orderProcess($array, $buyer_id){
+    global $database;
+    $total = 0;
+    $seller_id = $array[0]['user_id'];
+    $order_code = uniqid("ORD_");
+    for ($i=0; $i < count($array); $i++) { 
+         $total += $array[$i]['product_price'] * $array[$i]['qty'];
+    }
+    $make_order = mysqli_query($database, "INSERT INTO tb_orders VALUES (NULL, '$order_code', NOW(), NULL, 'menunggu konfirmasi', $buyer_id, $total, $seller_id)");
+    if($make_order){
+        $order_id = getResult("SELECT order_id FROM tb_orders GROUP BY order_id DESC LIMIT 1")[0]['order_id'];
+    } else {
+        $latest_id = mysqli_query($database, "SELECT * FROM tb_orders WHERE order_id = (SELECT MAX(order_id) FROM tb_orders)");
+        mysqli_query($database, "DELETE FROM tb_orders WHERE order_id = $latest_id");
+        return false;
+    }
+    foreach ($array as $data){
+        $id = $data['product_id'];
+        $qty = $data['qty'];
+        $sub_total = $data['product_price'] * $data['qty'];
+        $ordId = $order_id;
+        $seller_id = $data['user_id'];
+        mysqli_query($database, "INSERT INTO tb_order_detail VALUES ($ordId, $id, $qty, $sub_total, $seller_id, NULL)");
+        if(mysqli_error($database)){
+            return false;
+        }
+    }
+     decreaseStok($order_id);
+     goBackStok($order_id);
+    return true;
 }
