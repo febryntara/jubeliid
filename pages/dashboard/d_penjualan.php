@@ -20,7 +20,7 @@
                 include 'd_pesanan-masuk.php';
                 break;
             case 'dibatalkan':
-                include 'd_batal.php';
+                include 'd_batal_p.php';
                 break;
             default:
                 include 'd_laporan-penjualan.php';

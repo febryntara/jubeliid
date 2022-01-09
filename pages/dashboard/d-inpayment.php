@@ -27,8 +27,8 @@ $data_header = getResult("SELECT * FROM tb_orders WHERE status = 'pembayaran di 
                     <button type="button" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $data['order_id'] ?>">
                         Detail
                     </button>
-                    <?php $payment_action = $data['status'] == "pembayaran di proses" ? NULL : 'd-none' ?>
-                    <a class="btn btn-danger <?= $payment_action ?>" href="../../process/confirm-payment.process.php?code=<?= $data['order_id'] ?>" onclick="return confirm('Konfirmasi Pembayaran?')">Konfirmasi Pembayaran</a>
+                    <!-- <?php $payment_action = $data['status'] == "pembayaran di proses" ? NULL : 'd-none' ?> -->
+                    <!-- <a class="btn btn-danger <?= $payment_action ?>" href="../../process/confirm-payment.process.php?code=<?= $data['order_id'] ?>" onclick="return confirm('Konfirmasi Pembayaran?')">Konfirmasi Pembayaran</a> -->
                 </div>
             </td>
         </tr>
@@ -75,9 +75,8 @@ $data_header = getResult("SELECT * FROM tb_orders WHERE status = 'pembayaran di 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                    <!-- <button type="submit" name="confirm" class="btn btn-warning <?= $class = $orderDetail[0]['status'] == 'menunggu konfirmasi' ? NULL : 'd-none' ?>">Terima Order</button> -->
                     <button type="submit" name="receive" class="btn btn-warning <?= $class = $orderDetail[0]['status'] == 'pembayaran di proses' ? NULL : 'd-none' ?>">Konfirmasi Pembayaran</button>
-                    <!-- <button type="submit" name="receive" class="btn btn-warning <?= $class = $orderDetail[0]['status'] == 'menunggu pengiriman' ? NULL : 'd-none' ?>">Konfimasi Pembayaran</button> -->
+                    <a class="btn btn-danger" href="../../process/deny_payment.process.php?id=<?= $order_id ?>">Tolak Pembayaran</a>
                 </div>
             </div>
         </form>

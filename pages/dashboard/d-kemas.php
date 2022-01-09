@@ -1,7 +1,7 @@
 <?php 
 $user_id = $_SESSION['loginData']['user_id'];
 $user_level = $_SESSION['loginData']['status_id'];
-$data_header = getResult("SELECT * FROM tb_orders WHERE user_id = $user_id AND status != 'barang diterima' ORDER BY order_id DESC");
+$data_header = getResult("SELECT * FROM tb_orders WHERE user_id = $user_id AND status != 'barang diterima' AND status != 'dibatalkan' ORDER BY order_id DESC");
 // $data_collections = getResult("SELECT * FROM tb_orders INNER JOIN tb_order_detail USING(order_id)");
 ?>
 

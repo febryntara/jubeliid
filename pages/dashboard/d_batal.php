@@ -1,13 +1,7 @@
 <?php 
 $user_id = $_SESSION['loginData']['user_id'];
 $infouser = $_SESSION['loginData'];
-if($infouser['status_id'] == 1){
-    $data_header = getResult("SELECT * FROM tb_orders WHERE user_id = $user_id AND status = 'dibatalkan' ORDER BY order_id DESC");
-} else if ($infouser['status_id'] == 2) {
-    $data_header = getResult("SELECT * FROM tb_orders WHERE seller_id = $user_id AND status = 'dibatalkan' ORDER BY order_id DESC");
-} else {
-    $data_header = getResult("SELECT * FROM tb_orders WHERE status = 'dibatalkan' ORDER BY order_id DESC");
-}
+$data_header = getResult("SELECT * FROM tb_orders WHERE user_id = $user_id AND status = 'dibatalkan' ORDER BY order_id DESC");
 // $data_collections = getResult("SELECT * FROM tb_orders INNER JOIN tb_order_detail USING(order_id)");
 ?>
 
