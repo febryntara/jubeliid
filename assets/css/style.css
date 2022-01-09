@@ -75,8 +75,11 @@ body {
 }
 .detail-container > img {
   justify-self: flex-end;
-  width: 300px;
-  height: 300px;
+}
+
+.detail-main-image {
+    display: block;
+    width: 300px;
 }
 .detail-container > div {
   justify-self: flex-start;
@@ -255,6 +258,9 @@ body {
   }
   .detail-container > img {
     justify-self: center;
+  }
+  .detail-main-image {
+      width: 90%;
   }
   .detail-container > div {
     justify-self: center;

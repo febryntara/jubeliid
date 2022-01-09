@@ -1,6 +1,6 @@
 <?php 
 $user_id = $_SESSION['loginData']['user_id'];
-$data_header = getResult("SELECT * FROM tb_orders WHERE seller_id = $user_id AND status = 'menunggu konfirmasi' OR status = 'menunggu pembayaran' OR status = 'menunggu pengiriman' OR status = 'barang dikirim' ORDER BY order_id DESC");
+$data_header = getResult("SELECT * FROM tb_orders WHERE seller_id = $user_id AND status = 'menunggu konfirmasi' OR status = 'menunggu pembayaran' OR status = 'pembayaran di proses' OR status = 'menunggu pengiriman' OR status = 'barang dikirim' ORDER BY order_id DESC");
 // $data_collections = getResult("SELECT * FROM tb_orders INNER JOIN tb_order_detail USING(order_id)");
 ?>
 <div>

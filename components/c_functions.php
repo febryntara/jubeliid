@@ -1,5 +1,5 @@
 <?php
-$database = mysqli_connect("localhost", "root", "", "tokomedia");
+$database = mysqli_connect("localhost", "root", "", "tokomedia3");
 
 function getResult($query){
     global $database;
@@ -186,7 +186,7 @@ function insertImgPayment($data){
     if(!$image){
         $error = -1;
     } else {
-        mysqli_query($database, "INSERT INTO payments VALUES (NULL,$order_id,$from_id, $to_id, $amount, '$payment_status', '$image')");
+        mysqli_query($database, "INSERT INTO payments VALUES (NULL, $order_id, $from_id, $to_id, $amount, '$payment_status', '$image')");
         $error = mysqli_affected_rows($database);
     }
     if($error >= 1){

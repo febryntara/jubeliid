@@ -89,7 +89,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                <img class="d-block d-image-center" src="../../assets/img/<?= $productDetail['gambar'] ?>" alt="">
+                                <img class="d-block d-image-center w-100" src="../../assets/img/<?= $productDetail['gambar'] ?>" alt="">
                             </div>
                         </div>
                         <div class="row mt-2">

@@ -6,10 +6,10 @@
     }
     $product = getResult("SELECT * FROM products WHERE product_id = $id")[0];
     $seller = getResult("SELECT full_name FROM users WHERE user_id =".$product['user_id'])[0];
-    $infoUser = isset($_SESSION['loginData']) ? $_SESSION['loginData'] : NULL;
+    $infoUser = $_SESSION['loginData'];
 ?>
 <div class="detail-container ">
-    <img src="./assets/img/<?= $product['gambar'] ?>" alt="<?= $product['product_name'] ?>">
+    <img class="detail-main-image" src="./assets/img/<?= $product['gambar'] ?>" alt="<?= $product['product_name'] ?>">
     <div>
         <h2><?= $product['product_name'] ?></h2>
         <p>

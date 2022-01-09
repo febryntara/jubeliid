@@ -4,7 +4,7 @@
         <li>I Gede Bagus Febryntara</li>
         <li>I Wayan Raka Ivandi</li>
         <li>I Gede Agus Prawira Jaya</li>
-        <li>Ni Luh Nisa Sintia Dewi</li>
+        <li>Luh Putu Nisa Sintia Dewi</li>
         <li>Rajeesh Khana</li>
     </ol>
 </div>
