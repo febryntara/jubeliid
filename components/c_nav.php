@@ -20,7 +20,7 @@
           <a class="nav-link <?= $class = $where == 'home' ? 'active' : NULL ?>" aria-current="page" href="?page=home">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?= $class = $where == 'products' ? 'active' : NULL ?>" href="?page=products">Products</a>
+          <a class="nav-link <?= $class = $where == 'products' ? 'active' : NULL ?>" href="?page=products&tab=semua">Products</a>
         </li>
         <li class="nav-item">
           <a class="nav-link <?= $class = $where == 'about' ? 'active' : NULL ?>" href="?page=about">About</a>

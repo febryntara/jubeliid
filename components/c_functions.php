@@ -220,3 +220,30 @@ function orderProcess($array, $buyer_id){
      goBackStok($order_id);
     return true;
 }
+
+function paginationAndSearch($keyword, $currentPage = 1){
+    $dataShow = 10;
+    $dataCount = is_null($keyword) ? count(getResult("SELECT * FROM products")) :
+        count(getResult("SELECT * FROM products WHERE product_name LIKE '%$keyword%'"));
+    $pageCount = ceil($dataCount/$dataShow);
+    // $currentPage = isset($_GET['part']) ? $_GET['part'] : 1;
+    $startIndex = ($dataShow * $currentPage) - $dataShow;
+
+    return $value = [is_null($keyword) ? getResult("SELECT * FROM products LIMIT $startIndex, $dataShow") :
+        getResult("SELECT * FROM products WHERE product_name LIKE '%$keyword%' LIMIT $startIndex, $dataShow"), $pageCount];
+}
+
+function paginationAndSearchQuery($currentPage = 1, $mode, $extended){
+    $dataShow = 10;
+    $dataCount = ($mode === 1) ? count(getResult("SELECT * FROM products WHERE category = '$extended'")) : count(getResult("SELECT * FROM products"));    
+    $pageCount = ceil($dataCount/$dataShow);
+    $startIndex = ($dataShow * $currentPage) - $dataShow;
+
+    if($mode == 2){
+         return [getResult("SELECT * FROM products ORDER BY sold DESC LIMIT $startIndex, $dataShow"), $pageCount];
+    } else if ($mode == 3){
+         return [getResult("SELECT * FROM products ORDER BY product_id DESC LIMIT $startIndex, $dataShow"), $pageCount];
+    } else {
+        return [getResult("SELECT * FROM products WHERE category = '$extended' LIMIT $startIndex, $dataShow"), $pageCount];
+    }
+}

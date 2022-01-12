@@ -1,31 +1,39 @@
 <?php 
+$currentPage = isset($_GET['part']) ? $_GET['part'] : 1;
+
  if(isset($_GET['category'])){
      $category = $_GET{'category'};
      $c_lower = strtolower($category);
-     $products = getResult("SELECT * FROM products WHERE category = '$c_lower'");
-    } else if(isset($_POST['keyword'])){
+    //  $products = getResult("SELECT * FROM products WHERE category = '$category'");
+    $products = paginationAndSearchQuery($currentPage, 1, $c_lower)[0];
+    } else if(isset($_REQUEST['keyword'])){
         $category = 'Pilih Kategori';
-        $key = $_POST['keyword'];
-        $products = getResult("SELECT * FROM products WHERE product_name LIKE '%$key%' OR category LIKE '%$key%'");
+        $key = $_REQUEST['keyword'];
+        // $products = getResult("SELECT * FROM products WHERE product_name LIKE '%$key%' OR category LIKE '%$key%'");
+        $products = paginationAndSearch($key, $currentPage)[0];
     } else if(isset($_GET['tab'])) {
         $category = 'Semua';
         $key = $_GET['tab'];
         $tab = $key;
         switch ($key) {
             case 'terlaris':
-                $products = getResult("SELECT * FROM products ORDER BY sold DESC");
+                // $products = getResult("SELECT * FROM products ORDER BY sold DESC");
+                $products = paginationAndSearchQuery($currentPage, 2, NULL)[0];
                 break;
             case 'terbaru':
-                $products = getResult("SELECT * FROM products ORDER BY product_id DESC");
+                // $products = getResult("SELECT * FROM products ORDER BY product_id DESC");
+                $products = paginationAndSearchQuery($currentPage, 3, NULL)[0];
                 break;
             default:
-                 $products = getResult("SELECT * FROM products ORDER BY product_id DESC");
+                //  $products = getResult("SELECT * FROM products ORDER BY product_id DESC");
+                $products = paginationAndSearch(NULL, $currentPage)[0];
                 break;
         }
     }else {
-        $tab = 'default';
+        $tab = 'semua';
         $category = "Semua";
-        $products = getResult("SELECT * FROM products ORDER BY product_id DESC");
+        // $products = getResult("SELECT * FROM products ORDER BY product_id DESC");
+        $products = paginationAndSearch($key, $currentPage)[0];
  }
 ?>
 <div class="container-fluid bg-dark" style="height: 250px;">&nbsp;</div>
@@ -66,7 +74,7 @@
     <div class="collapse navbar-collapse text-center" id="navbarNav1">
         <ul class="navbar-nav ms-auto">
             <li class="nav-item m-1 active">
-                <a class="link-reset <?= $class = $tab == 'default' ? 'fw-bold' : NULL ?>" href="?page=products#products">Semua Produk</a>
+                <a class="link-reset <?= $class = $tab == 'semua' ? 'fw-bold' : NULL ?>" href="?page=products&tab=semua#products">Semua Produk</a>
             </li>
             <li class="nav-item m-1">
                 <a class="link-reset <?= $class = $tab == 'terlaris' ? 'fw-bold' : NULL ?>" href="?page=products&tab=terlaris#products">Produk Terlaris</a>
@@ -98,6 +106,37 @@
         </div>
     <?php endforeach; ?>
 </div>
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <?php $whichOne = isset($_REQUEST['keyword']) ? paginationAndSearch($_REQUEST['keyword'], $currentPage)[1] : 
+        (isset($_REQUEST['category']) ? paginationAndSearchQuery(1, 1, $c_lower)[1] : 
+        (isset($_REQUEST['tab']) == 'terlaris' ? paginationAndSearchQuery(1,2, NULL)[1] : paginationAndSearchQuery(1,3, NULL)[1])) ;
+    ?>
+    <?php $alpha1 = isset($_REQUEST['keyword']) ? NULL : 'd-none' ?>
+    <?php $alpha2 = isset($_REQUEST['category']) ?  NULL : 'd-none' ?>
+    <?php $alpha3 = (isset($_REQUEST['tab']) && $_REQUEST['tab'] == 'semua') ? NULL : 'd-none' ?>
+    <?php $alpha4 = (isset($_REQUEST['tab']) && $_REQUEST['tab'] == 'terlaris') ? NULL : 'd-none' ?>
+    <?php $alpha5 = (isset($_REQUEST['tab']) && $_REQUEST['tab'] == 'terbaru') ? NULL : 'd-none' ?>
+    <?php for($i = 1; $i <= $whichOne; $i++): ?>
+        <li class="page-item"><a class="page-link <?= $alpha1 ?>" href="?page=products&part=<?= $i ?>&keyword=<?= $key = isset($_REQUEST['keyword']) ? $_REQUEST['keyword'] : NULL?>#products"><?= $i ?></a></li>
+        <li class="page-item"><a class="page-link <?= $alpha2 ?>" href="?page=products&part=<?= $i ?>&category=<?= $_REQUEST['category'] ?>#products"><?= $i ?></a></li>
+        <li class="page-item"><a class="page-link <?= $alpha3 ?>" href="?page=products&tab=semua&part=<?= $i ?>#products"><?= $i ?></a></li>
+        <li class="page-item"><a class="page-link <?= $alpha4 ?>" href="?page=products&tab=terlaris&part=<?= $i ?>#products"><?= $i ?></a></li>
+        <li class="page-item"><a class="page-link <?= $alpha5 ?>" href="?page=products&tab=terbaru&part=<?= $i ?>#products"><?= $i ?></a></li>
+    <?php endfor ?>
+    <!-- <?php var_dump($alpha1,$alpha2,$alpha3) ?> -->
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
 <h2 class="text-center <?= $class = empty($products) ? NULL : 'd-none' ?>">Produk Tidak Ditemukan</h2>
 
 <script type="text/javascript">

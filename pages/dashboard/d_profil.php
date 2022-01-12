@@ -15,11 +15,23 @@
     $alpha = $infoUser['status_id'] == 2 ? NULL : 'd-none';
 ?>
 
-<ul class="<?= $class = $infoUser['status_id'] == '3' ? 'd-none' : NULL ?>">
-    <li>Username : <?= $infoUser['username'] ?></li>
-    <li>Full Name : <?= $infoUser['full_name'] ?></li>
-    <li>Order Count : <?= $orderCount ?></li>
-    <li class="<?= $alpha ?>">Order Get : <?= $orderGet ?></li>
-    <li>Money Spend : Rp. <?= $moneySpend ?></li>
-    <li class="<?= $alpha ?>">Money Get : Rp. <?= $moneyGet ?></li>
-</ul>
+<div class="<?= $class = $infoUser['status_id'] == '3' ? 'd-none' : NULL ?>">
+    <div class="alert alert-secondary" role="alert">
+        Username : <?= $infoUser['username'] ?>
+    </div>
+    <div class="alert alert-secondary" role="alert">
+        Full Name : <?= $infoUser['full_name'] ?>
+    </div>
+    <div class="alert alert-secondary" role="alert">
+        Order Count : <?= $orderCount ?>
+    </div>
+    <div class="alert alert-secondary <?= $alpha ?>" role="alert">
+        Order Get : <?= $orderGet ?>
+    </div>
+    <div class="alert alert-secondary" role="alert">
+       Money Spend : Rp. <?= $moneySpend ?>
+    </div>
+    <div class="alert alert-secondary <?= $alpha ?>" role="alert">
+        Money Get : Rp. <?= $moneyGet ?>
+    </div>
+</div>
