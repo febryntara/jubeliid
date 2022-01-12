@@ -2,8 +2,14 @@
 body {
   font-family: "poppins", sans-serif;
 }
+.text-inherit {
+  color: inherit !important;
+}
 .text-light {
   color: white;
+}
+.text-dark {
+  color: rgb(0, 0, 0);
 }
 .link-reset {
   text-decoration: none;
@@ -78,8 +84,8 @@ body {
 }
 
 .detail-main-image {
-    display: block;
-    width: 300px;
+  display: block;
+  width: 300px;
 }
 .detail-container > div {
   justify-self: flex-start;
@@ -260,7 +266,7 @@ body {
     justify-self: center;
   }
   .detail-main-image {
-      width: 90%;
+    width: 90%;
   }
   .detail-container > div {
     justify-self: center;

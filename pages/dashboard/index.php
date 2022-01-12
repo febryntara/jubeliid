@@ -64,6 +64,18 @@
                         <span class="d-hide">Pembayaran</span>
                     </a>
                 </li>
+                <li class="<?= $class = $infoUser['status_id'] !== '3' ? 'd-none' : NULL ?>">
+                    <a class="link-reset" href="?tab=seller-request">
+                        <ion-icon class="fs-5" name="wallet"></ion-icon>
+                        <span class="d-hide">Seller Request</span>
+                    </a>
+                </li>
+                <li class="<?= $class = $infoUser['status_id'] !== '3' ? 'd-none' : NULL ?>">
+                    <a class="link-reset" href="?tab=kelola-user">
+                        <ion-icon class="fs-5" name="wallet"></ion-icon>
+                        <span class="d-hide">Kelola User</span>
+                    </a>
+                </li>
             </ul>
         </div>
         <div class="bg-light d-content">

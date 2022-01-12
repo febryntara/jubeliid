@@ -106,10 +106,27 @@ $currentPage = isset($_GET['part']) ? $_GET['part'] : 1;
         </div>
     <?php endforeach; ?>
 </div>
+<?php $alpha1 = isset($_REQUEST['keyword']) ? NULL : 'd-none' ?>
+    <?php $alpha2 = isset($_REQUEST['category']) ?  NULL : 'd-none' ?>
+    <?php $alpha3 = (isset($_REQUEST['tab']) && $_REQUEST['tab'] == 'semua') ? NULL : 'd-none' ?>
+    <?php $alpha4 = (isset($_REQUEST['tab']) && $_REQUEST['tab'] == 'terlaris') ? NULL : 'd-none' ?>
+    <?php $alpha5 = (isset($_REQUEST['tab']) && $_REQUEST['tab'] == 'terbaru') ? NULL : 'd-none' ?>
 <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
     <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
+      <a class="page-link text-inherit <?= $alpha1 ?>" href="?page=products&part=<?= $_REQUEST['part']-1 ?>&keyword=<?= $key = isset($_REQUEST['keyword']) ? $_REQUEST['keyword'] : NULL?>#products" aria-label="Next">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+      <a class="page-link text-inherit <?= $alpha2 ?>" href="?page=products&part=<?= $_REQUEST['part']-1 ?>&category=<?= $_REQUEST['category'] ?>#products" aria-label="Next">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+      <a class="page-link text-inherit <?= $alpha3 ?>" href="?page=products&tab=semua&part=<?= $_REQUEST['part']-1 ?>#products" aria-label="Next">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+      <a class="page-link text-inherit <?= $alpha4 ?>" href="?page=products&tab=terlaris&part=<?= $_REQUEST['part']-1 ?>#products" aria-label="Next">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+      <a class="page-link text-inherit <?= $alpha5 ?>" href="?page=products&tab=terbaru&part=<?= $_REQUEST['part']-1 ?>#products" aria-label="Next">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
@@ -117,21 +134,28 @@ $currentPage = isset($_GET['part']) ? $_GET['part'] : 1;
         (isset($_REQUEST['category']) ? paginationAndSearchQuery(1, 1, $c_lower)[1] : 
         (isset($_REQUEST['tab']) == 'terlaris' ? paginationAndSearchQuery(1,2, NULL)[1] : paginationAndSearchQuery(1,3, NULL)[1])) ;
     ?>
-    <?php $alpha1 = isset($_REQUEST['keyword']) ? NULL : 'd-none' ?>
-    <?php $alpha2 = isset($_REQUEST['category']) ?  NULL : 'd-none' ?>
-    <?php $alpha3 = (isset($_REQUEST['tab']) && $_REQUEST['tab'] == 'semua') ? NULL : 'd-none' ?>
-    <?php $alpha4 = (isset($_REQUEST['tab']) && $_REQUEST['tab'] == 'terlaris') ? NULL : 'd-none' ?>
-    <?php $alpha5 = (isset($_REQUEST['tab']) && $_REQUEST['tab'] == 'terbaru') ? NULL : 'd-none' ?>
     <?php for($i = 1; $i <= $whichOne; $i++): ?>
-        <li class="page-item"><a class="page-link <?= $alpha1 ?>" href="?page=products&part=<?= $i ?>&keyword=<?= $key = isset($_REQUEST['keyword']) ? $_REQUEST['keyword'] : NULL?>#products"><?= $i ?></a></li>
-        <li class="page-item"><a class="page-link <?= $alpha2 ?>" href="?page=products&part=<?= $i ?>&category=<?= $_REQUEST['category'] ?>#products"><?= $i ?></a></li>
-        <li class="page-item"><a class="page-link <?= $alpha3 ?>" href="?page=products&tab=semua&part=<?= $i ?>#products"><?= $i ?></a></li>
-        <li class="page-item"><a class="page-link <?= $alpha4 ?>" href="?page=products&tab=terlaris&part=<?= $i ?>#products"><?= $i ?></a></li>
-        <li class="page-item"><a class="page-link <?= $alpha5 ?>" href="?page=products&tab=terbaru&part=<?= $i ?>#products"><?= $i ?></a></li>
+        <li class="page-item <?= $bold = ($i == $_REQUEST['part'] ? 'fw-bold text-dark' : NULL) ?>"><a class="page-link text-inherit <?= $alpha1 ?>" href="?page=products&part=<?= $i ?>&keyword=<?= $key = isset($_REQUEST['keyword']) ? $_REQUEST['keyword'] : NULL?>#products"><?= $i ?></a></li>
+        <li class="page-item <?= $bold = ($i == $_REQUEST['part'] ? 'fw-bold text-dark' : NULL) ?>"><a class="page-link text-inherit <?= $alpha2 ?>" href="?page=products&part=<?= $i ?>&category=<?= $_REQUEST['category'] ?>#products"><?= $i ?></a></li>
+        <li class="page-item <?= $bold = ($i == $_REQUEST['part'] ? 'fw-bold text-dark' : NULL) ?>"><a class="page-link text-inherit <?= $alpha3 ?>" href="?page=products&tab=semua&part=<?= $i ?>#products"><?= $i ?></a></li>
+        <li class="page-item <?= $bold = ($i == $_REQUEST['part'] ? 'fw-bold text-dark' : NULL) ?>"><a class="page-link text-inherit <?= $alpha4 ?>" href="?page=products&tab=terlaris&part=<?= $i ?>#products"><?= $i ?></a></li>
+        <li class="page-item <?= $bold = ($i == $_REQUEST['part'] ? 'fw-bold text-dark' : NULL) ?>"><a class="page-link text-inherit <?= $alpha5 ?>" href="?page=products&tab=terbaru&part=<?= $i ?>#products"><?= $i ?></a></li>
     <?php endfor ?>
     <!-- <?php var_dump($alpha1,$alpha2,$alpha3) ?> -->
     <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
+      <a class="page-link text-inherit <?= $alpha1 ?>" href="?page=products&part=<?= $_REQUEST['part']+1 ?>&keyword=<?= $key = isset($_REQUEST['keyword']) ? $_REQUEST['keyword'] : NULL?>#products" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+      <a class="page-link text-inherit <?= $alpha2 ?>" href="?page=products&part=<?= $_REQUEST['part']+1 ?>&category=<?= $_REQUEST['category'] ?>#products" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+      <a class="page-link text-inherit <?= $alpha3 ?>" href="?page=products&tab=semua&part=<?= $_REQUEST['part']+1 ?>#products" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+      <a class="page-link text-inherit <?= $alpha4 ?>" href="?page=products&tab=terlaris&part=<?= $_REQUEST['part']+1 ?>#products" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+      <a class="page-link text-inherit <?= $alpha5 ?>" href="?page=products&tab=terbaru&part=<?= $_REQUEST['part']+1 ?>#products" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
     </li>
