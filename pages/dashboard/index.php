@@ -66,13 +66,13 @@
                 </li>
                 <li class="<?= $class = $infoUser['status_id'] !== '3' ? 'd-none' : NULL ?>">
                     <a class="link-reset" href="?tab=seller-request">
-                        <ion-icon class="fs-5" name="wallet"></ion-icon>
+                        <ion-icon class="fs-5" name="create-sharp"></ion-icon>
                         <span class="d-hide">Seller Request</span>
                     </a>
                 </li>
                 <li class="<?= $class = $infoUser['status_id'] !== '3' ? 'd-none' : NULL ?>">
                     <a class="link-reset" href="?tab=kelola-user">
-                        <ion-icon class="fs-5" name="wallet"></ion-icon>
+                        <ion-icon class="fs-5" name="people-sharp"></ion-icon>
                         <span class="d-hide">Kelola User</span>
                     </a>
                 </li>
@@ -96,6 +96,12 @@
                         break;
                     case 'penjualan':
                         include './d_penjualan.php';
+                        break;
+                    case 'seller-request':
+                        include './d_seller-request.php';
+                        break;
+                    case 'kelola-user':
+                        include './d_kelola-user.php';
                         break;
                     default:
                         include './d_dashboard.php';
