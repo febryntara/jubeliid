@@ -95,7 +95,7 @@ $currentPage = isset($_GET['part']) ? $_GET['part'] : 1;
     <?php foreach($products as $data): ?>
         <div class="products-item">
             <a href="?page=detail&id=<?= $data['product_id'] ?>&from=products"><img src="./assets/img/<?= $data['gambar'] ?>" alt="" class="d-block w-100 rounded"></a>
-            <p class="mt-4 mb-0"><?= $data['product_name'] ?></p>
+            <p class="mt-4 mb-0" style="overflow: hidden;"><?= $data['product_name'] ?></p>
             <p style="overflow: hidden;" class="mb-0"><b>Rp. <?= $data['product_price'] ?></b></p>
             <button class="btn btn-danger <?= $class = $data['stok'] != 0 ? 'd-none' : NULL ?>" onclick="return alert('Produk Kosong!')">
                 PRODUK KOSONG!
