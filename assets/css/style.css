@@ -448,8 +448,28 @@ body {
     font-weight: bold;
     display: block;
   }
-  .tb-lp tr td:last-child::before {
+  /* .tb-lp tr td:last-child::before {
     content: "Aksi";
+    font-weight: bold;
+    display: block;
+  } */
+  .tb-ku tr td:nth-child(2)::before {
+    content: "Nama User";
+    font-weight: bold;
+    display: block;
+  }
+  .tb-ku tr td:nth-child(3)::before {
+    content: "Status";
+    font-weight: bold;
+    display: block;
+  }
+  .tb-rs tr td:nth-child(2)::before {
+    content: "Nama User";
+    font-weight: bold;
+    display: block;
+  }
+  .tb-rs tr td:nth-child(3)::before {
+    content: "Status";
     font-weight: bold;
     display: block;
   }

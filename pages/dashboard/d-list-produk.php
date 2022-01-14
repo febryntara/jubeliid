@@ -69,6 +69,9 @@
             </td>
         </tr>
         <?php endforeach; ?>
+        <tr class="<?= $class = count($data_header) > 0 ? 'd-none' : NULL ?>">
+            <td colspan="7">Data Tidak Ditemukan</td>
+        </tr>
    </table>
    <!-- Modal -->
    <?php foreach($productId as $id) :?>

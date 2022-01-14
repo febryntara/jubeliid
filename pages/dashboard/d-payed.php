@@ -12,7 +12,7 @@ $data_header = getResult("SELECT * FROM payments INNER JOIN tb_orders USING (ord
 ?>
 
 <div>
-    <a class="btn btn-primary mt-4" href="../../process/print_report.process.php" target="_blank" rel="noopener noreferrer">Cetak PDF</a>
+    <!-- <a class="btn btn-primary mt-4" href="../../process/print_report.process.php" target="_blank" rel="noopener noreferrer">Cetak PDF</a> -->
     <table class="d-list-table table-kemas mt-1">
        <tr>
            <th>No</th>
@@ -41,6 +41,9 @@ $data_header = getResult("SELECT * FROM payments INNER JOIN tb_orders USING (ord
             </td>
         </tr>
         <?php endforeach; ?>
+        <tr class="<?= $class = count($data_header) > 0 ? 'd-none' : NULL ?>">
+            <td colspan="7">Data Tidak Ditemukan</td>
+        </tr>
    </table>
 
    <!-- MODAL -->

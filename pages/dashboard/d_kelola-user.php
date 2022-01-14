@@ -10,7 +10,7 @@ $data_header = getResult("SELECT * FROM users WHERE status_id != 3");
             <a class="link-reset" href="?tab=kelola-user">Kelola User</a>
         </li>
     </ul>
-    <table class="d-list-table tb-lp mt-5">
+    <table class="d-list-table tb-ku mt-5">
        <tr class="text-center">
            <th>No</th>
            <th>Nama User</th>

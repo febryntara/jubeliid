@@ -37,6 +37,9 @@ $data_header = getResult("SELECT * FROM tb_orders WHERE seller_id = $user_id AND
                 </td>
             </tr>
         <?php endforeach; ?>
+        <tr class="<?= $class = count($data_header) > 0 ? 'd-none' : NULL ?>">
+            <td colspan="6">Data Tidak Ditemukan</td>
+        </tr>
     </table>
 
     <!-- MODAL -->

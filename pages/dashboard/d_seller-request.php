@@ -10,7 +10,7 @@ $data_header = getResult("SELECT * FROM request_seller WHERE status = 'menunggu'
             <a class="link-reset" href="?tab=seller-request">Seller Request</a>
         </li>
     </ul>
-    <table class="d-list-table tb-lp mt-5">
+    <table class="d-list-table tb-rs mt-5">
        <tr class="text-center">
            <th>No</th>
            <th>Nama User</th>
@@ -29,5 +29,8 @@ $data_header = getResult("SELECT * FROM request_seller WHERE status = 'menunggu'
             </td>
         </tr>
         <?php endforeach; ?>
+        <tr class="<?= $class = count($data_header) > 0 ? 'd-none' : NULL ?>">
+            <td colspan="4">Data Tidak Ditemukan</td>
+        </tr>
    </table>
 </div>
