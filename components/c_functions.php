@@ -167,12 +167,13 @@ function insertImgPayment($data)
     if (!$image) {
         $error = -1;
     } else {
-        mysqli_query($database, "INSERT INTO payments VALUES (NULL, $order_id, $from_id, $to_id, $amount, '$payment_status', '$image', NULL");
+        mysqli_query($database, "INSERT INTO payments VALUES (NULL, $order_id, $from_id, $to_id, $amount, '$payment_status', '$image')");
         $error = mysqli_affected_rows($database);
     }
+
     if ($error >= 1) {
         echo "<script>alert('Bukti bayar berhasil diupload!')</script>";
-        mysqli_query($database, "UPDATE tb_orders SET status = 'pembayaran di proses' WHERE order_id = $order_id");
+        $result = mysqli_query($database, "UPDATE tb_orders SET status = 'pembayaran di proses' WHERE order_id = $order_id");
     } else {
         echo "<script>alert('Bukti bayar gagal diupload!')</script>";
     }
