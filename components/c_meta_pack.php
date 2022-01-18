@@ -6,4 +6,6 @@
 <?php include_once 'c_fonts_gallery.php' ?>
 <link rel="stylesheet" href="../../assets/css/style.css">
 <link rel="stylesheet" href="./assets/css/style.css">
+<link rel="icon" href="./assets/img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="../../assets/img/favicon.ico" type="image/x-icon">
 <!-- <link rel="stylesheet" href="http://localhost/jubeli.id/assets/css/style.css"> -->

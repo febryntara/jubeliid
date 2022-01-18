@@ -167,7 +167,7 @@ function insertImgPayment($data)
     if (!$image) {
         $error = -1;
     } else {
-        mysqli_query($database, "INSERT INTO payments VALUES (NULL, $order_id, $from_id, $to_id, $amount, '$payment_status', '$image')");
+        mysqli_query($database, "INSERT INTO payments VALUES (NULL, $order_id, $from_id, $to_id, $amount, '$payment_status', '$image', NULL)");
         $error = mysqli_affected_rows($database);
     }
 
@@ -189,6 +189,9 @@ function decreaseStok($order_id)
         $updatedSold = getResult("SELECT * FROM products WHERE product_id = " . $action['product_id'])[0]['sold'] + $action['qty'];
         $doUpdate = mysqli_query($database, "UPDATE products SET stok = $updatedStok, sold = $updatedSold WHERE product_id = " . $action['product_id']);
     }
+    var_dump($updatedSold);
+    var_dump($updatedStok);
+    var_dump($doUpdate);
 }
 function goBackStok($order_id)
 {
@@ -199,6 +202,9 @@ function goBackStok($order_id)
         $updatedSold = getResult("SELECT * FROM products WHERE product_id = " . $action['product_id'])[0]['sold'] - $action['qty'];
         $doUpdate = mysqli_query($database, "UPDATE products SET stok = $updatedStok, sold = $updatedSold WHERE product_id = " . $action['product_id']);
     }
+    var_dump($updatedSold);
+    var_dump($updatedStok);
+    var_dump($doUpdate);
 }
 
 function orderProcess($array, $buyer_id)
@@ -230,7 +236,7 @@ function orderProcess($array, $buyer_id)
         }
     }
     decreaseStok($order_id);
-    goBackStok($order_id);
+    // goBackStok($order_id);
     return true;
 }
 

@@ -2,12 +2,20 @@
 session_start();
 require '../components/c_functions.php';
 $buyer_id = $_SESSION['loginData']['user_id'];
-unset($_SESSION['cart']);
 $qty = $_POST['qty'];
 $product_price = $_POST['product_price'];
 $product_id = $_POST['product_id'];
 $seller_id = $_POST['seller_id'];
 $seller_id = array_count_values($seller_id);
+
+foreach ($qty as $key => $value) {
+    $stokProduk = getResult("SELECT * FROM products WHERE product_id = ".$product_id[$key])[0]['stok'];
+    if($stokProduk < $value){
+         echo "<script>alert('Order gagal diproses! Qty bermasalah! Silahkan ulang order!')</script>";
+         echo "<script>window.location='../pages/dashboard?tab=pesanan&menu=keranjang'</script>";
+    }
+}
+unset($_SESSION['cart']);
 
 foreach ($seller_id as $key => $value) {
     $query = "";

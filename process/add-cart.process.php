@@ -25,7 +25,7 @@ if ($error > 0){
     $_SESSION['cart'][] = $product;
 }
 if(isset($_GET['from'])== 'products'){
-    echo "<script>window.location = '../?page=products'</script>";
+    echo "<script>window.location = '../?page=products&tab=semua'</script>";
 } else {
     echo "<script>window.location = '../'</script>";
 }

@@ -29,7 +29,7 @@ $data_header = getResult("SELECT * FROM payments INNER JOIN tb_orders USING (ord
             <td><?= $index; ?></td>
             <td><?= $data['order_code']; ?></td>
             <td><?= $data['order_date']; ?></td>
-            <td><?= is_null($data['payment_date']) ? '-' : NULL; ?></td>
+            <td><?= is_null($data['payment_date']) ? '-' : $data['payment_date']; ?></td>
             <td>Rp. <?= $data['total']; ?></td>
             <td><?= $data['payment_status'] ?></td>
             <td>
