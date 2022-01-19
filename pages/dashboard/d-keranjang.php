@@ -2,8 +2,12 @@
     if(empty($_SESSION['cart'])){
         $cart = [];
     } else {
-        $cart = $_SESSION['cart'];
+        // $cart = $_SESSION['cart'];
+        foreach($_SESSION['cart'] as $key => $value){
+            $cart[] = getResult("SELECT * FROM products WHERE product_id = $value")[0];
+        }
     }
+    // var_dump($_SESSION['cart']);
 ?>
 
 <div class="d-menu-content">

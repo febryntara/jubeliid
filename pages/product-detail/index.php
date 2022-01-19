@@ -32,5 +32,5 @@
     </button>
     <a class="btn btn-warning <?= $class = $product['stok'] == 0 || $infoUser['user_id'] == $product['user_id'] ? 'd-none' : NULL ?>" href="./process/add-cart.process.php?product_id=<?= $product['product_id'] ?>">Add To Cart</a>
     <a class="btn btn-primary <?= $class = $infoUser['user_id'] == $product['user_id'] ? NULL : 'd-none' ?>">This is Your Product</a>
-    <a href="<?= $link = isset($_GET['from']) ? './?page=products' : './' ?>" class="btn btn-dark">Kembali</a>
+    <a href="<?= $link = isset($_GET['from']) ? './?page=products&tab=semua' : './' ?>" class="btn btn-dark">Kembali</a>
 </div>

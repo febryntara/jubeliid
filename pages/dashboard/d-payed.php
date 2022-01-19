@@ -1,6 +1,6 @@
 <?php 
 $user_id = $_SESSION['loginData']['user_id'];
-$data_header = getResult("SELECT * FROM payments INNER JOIN tb_orders USING (order_id) WHERE payment_status = 'pembayaran diterima' OR payment_status = 'pembayaran ditolak'");
+$data_header = getResult("SELECT * FROM payments INNER JOIN tb_orders USING (order_id) WHERE (payment_status = 'pembayaran diterima' OR payment_status = 'pembayaran ditolak')");
 // $data_header = [];
 // foreach ($data as $key => $value) {
 //     $ord_id = $value['order_id'];

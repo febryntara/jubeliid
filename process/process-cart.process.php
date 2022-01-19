@@ -13,9 +13,9 @@ foreach ($qty as $key => $value) {
     if($stokProduk < $value){
          echo "<script>alert('Order gagal diproses! Qty bermasalah! Silahkan ulang order!')</script>";
          echo "<script>window.location='../pages/dashboard?tab=pesanan&menu=keranjang'</script>";
+         return exit;
     }
 }
-unset($_SESSION['cart']);
 
 foreach ($seller_id as $key => $value) {
     $query = "";
@@ -52,9 +52,11 @@ foreach ($seller_id as $key => $value) {
 
 if($make_order==true){
     echo "<script>alert('Order berhasil diproses!')</script>";
+    unset($_SESSION['cart']);
 } else {
     $new_order = getResult("SELECT order_id from tb_orders ORDER BY order_id DESC")[0]['order_id'];
     mysqli_query($database, "DELETE FROM tb_orders WHERE order_id = $new_order");
     echo "<script>alert('Order gagal diproses! Coba ulang!')</script>";
+    unset($_SESSION['cart']);
 }
 echo "<script>window.location='../pages/dashboard?tab=pesanan&menu=dikemas'</script>";

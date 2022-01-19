@@ -49,8 +49,8 @@ if (isset($_SESSION['loginData'])) {
                     <button class="btn btn-danger <?= $class = $data['stok'] != 0 ? 'd-none' : NULL ?>" onclick="return alert('Produk Kosong!')">
                         PRODUK KOSONG!
                     </button>
-                    <a class="btn btn-warning <?= $class = $data['stok'] == 0 ? 'd-none' : $_SESSION['loginData']['user_id'] == $data['user_id'] ? 'd-none' : NULL ?>" href="./process/add-cart.process.php?product_id=<?= $data['product_id'] ?>">Add To Cart</a>
-                    <a class="btn btn-primary <?= $class = $data['stok'] == 0 ? 'd-none' : $_SESSION['loginData']['user_id'] != $data['user_id'] ? 'd-none' : NULL ?>" href="?page=detail&id=<?= $data['product_id'] ?>">See Details</a>
+                    <a class="btn btn-warning <?= $class = $data['stok'] == 0 ? 'd-none' : ($infoUser['user_id'] == $data['user_id'] ? 'd-none' : NULL) ?>" href="./process/add-cart.process.php?product_id=<?= $data['product_id'] ?>">Add To Cart</a>
+                    <a class="btn btn-primary <?= $class = $data['stok'] == 0 ? 'd-none' : ($infoUser['user_id'] != $data['user_id'] ? 'd-none' : NULL) ?>" href="?page=detail&id=<?= $data['product_id'] ?>">See Details</a>
                     <!-- <a class="btn btn-primary">Detail</a> -->
                 </div>
             <?php endforeach; ?>
@@ -70,8 +70,8 @@ if (isset($_SESSION['loginData'])) {
                     <button class="btn btn-danger <?= $class = $data['stok'] != 0 ? 'd-none' : NULL ?>" onclick="return alert('Produk Kosong!')">
                         PRODUK KOSONG!
                     </button>
-                    <a class="btn btn-warning <?= $class = $data['stok'] == 0 ? 'd-none' : $_SESSION['loginData']['user_id'] == $data['user_id'] ? 'd-none' : NULL ?>" href="./process/add-cart.process.php?product_id=<?= $data['product_id'] ?>">Add To Cart</a>
-                    <a class="btn btn-primary <?= $class = $data['stok'] == 0 ? 'd-none' : $_SESSION['loginData']['user_id'] != $data['user_id'] ? 'd-none' : NULL ?>" href="?page=detail&id=<?= $data['product_id'] ?>">See Details</a>
+                    <a class="btn btn-warning <?= $class = $data['stok'] == 0 ? 'd-none' : ($infoUser['user_id'] == $data['user_id'] ? 'd-none' : NULL )?>" href="./process/add-cart.process.php?product_id=<?= $data['product_id'] ?>">Add To Cart</a>
+                    <a class="btn btn-primary <?= $class = $data['stok'] == 0 ? 'd-none' : ($infoUser['user_id'] != $data['user_id'] ? 'd-none' : NULL ) ?>" href="?page=detail&id=<?= $data['product_id'] ?>">See Details</a>
                     <!-- <a class="btn btn-primary">Detail</a> -->
                 </div>
             <?php endforeach; ?>

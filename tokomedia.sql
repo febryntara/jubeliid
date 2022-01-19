@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Waktu pembuatan: 17 Des 2021 pada 13.40
--- Versi server: 10.4.16-MariaDB
--- Versi PHP: 7.4.12
+-- Host: sql303.byethost11.com
+-- Waktu pembuatan: 19 Jan 2022 pada 08.19
+-- Versi server: 10.3.27-MariaDB
+-- Versi PHP: 7.2.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `tokomedia`
+-- Database: `b11_30613512_tokomedia`
 --
 
 -- --------------------------------------------------------
@@ -33,26 +34,30 @@ CREATE TABLE `payments` (
   `from_uid` int(11) NOT NULL,
   `to_uid` int(11) NOT NULL,
   `amount` int(11) NOT NULL,
-  `payment_status` varchar(15) NOT NULL,
-  `proof` varchar(50) NOT NULL
+  `payment_status` varchar(100) NOT NULL,
+  `proof` varchar(100) NOT NULL,
+  `payment_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `payments`
 --
 
-INSERT INTO `payments` (`payment_id`, `order_id`, `from_uid`, `to_uid`, `amount`, `payment_status`, `proof`) VALUES
-(10, 48, 9, 6, 1480000, 'menunggu konfir', '619dd8c6e5ded.png'),
-(11, 49, 9, 6, 900000, 'menunggu konfir', '619e1e6d441e8.png'),
-(12, 50, 9, 6, 450000, 'menunggu konfir', '619e201361331.png'),
-(13, 51, 9, 6, 450000, 'menunggu konfir', '619e2732ebeec.jpg'),
-(14, 52, 9, 6, 450000, 'menunggu konfir', '619e2938a0f71.png'),
-(15, 53, 9, 6, 450000, 'menunggu konfir', '619e299983b47.png'),
-(16, 54, 9, 6, 450000, 'menunggu konfir', '619e29ea6651f.png'),
-(17, 55, 9, 6, 580000, 'pembayaran diko', '61a7216064448.png'),
-(18, 57, 9, 6, 450000, 'pembayaran diko', '61af8242ec31d.jpg'),
-(19, 59, 15, 6, 740000, 'pembayaran diko', '61b17e9d631c2.jpg'),
-(20, 61, 9, 7, 1739000, 'pembayaran diko', '61b2f08000750.jpg');
+INSERT INTO `payments` (`payment_id`, `order_id`, `from_uid`, `to_uid`, `amount`, `payment_status`, `proof`, `payment_date`) VALUES
+(1, 1, 21, 18, 2675000, 'pembayaran dikonfirmasi', '61c923a8237aa.png', '2022-01-16 11:44:29'),
+(2, 2, 21, 18, 105000, 'pembayaran dikonfirmasi', '61caae86e4a7b.png', '2022-01-16 11:44:29'),
+(3, 3, 21, 17, 378000, 'pembayaran dikonfirmasi', '61d1acf521eb6.jpg', '2022-01-16 11:44:29'),
+(4, 5, 17, 18, 80000, 'menunggu konfirmasi pembayaran', '61d1b5cebc934.jpg', '2022-01-16 11:44:29'),
+(5, 6, 21, 18, 100000, 'pembayaran dikonfirmasi', '61d540ba9dbd1.jpg', '2022-01-16 11:44:29'),
+(6, 8, 22, 17, 243000, 'menunggu konfirmasi pembayaran', '61e2514a17c00.jpeg', '2022-01-16 11:44:29'),
+(7, 8, 22, 17, 243000, 'menunggu konfirmasi pembayaran', '61e2514a17c00.jpeg', '2022-01-16 11:44:29'),
+(8, 8, 22, 17, 243000, 'menunggu konfirmasi pembayaran', '61e252160da48.jpeg', '2022-01-16 11:44:29'),
+(9, 12, 23, 17, 50000, 'menunggu konfirmasi pembayaran', '61e255217fc5d.jpg', '2022-01-16 11:44:29'),
+(10, 14, 21, 17, 5300000, 'menunggu konfirmasi pembayaran', '61e2648e5a16d.jpg', '2022-01-16 11:44:29'),
+(11, 15, 21, 17, 6872000, 'pembayaran diterima', '61e40a7e428dc.jpg', '2022-01-16 12:07:56'),
+(12, 17, 24, 18, 5000, 'pembayaran diterima', '61e65b0845751.jpg', '2022-01-18 06:15:36'),
+(13, 16, 24, 17, 100000, 'pembayaran diterima', '61e65b6e5e002.jpg', '2022-01-18 06:17:52'),
+(14, 26, 22, 18, 8000, 'pembayaran diterima', '61e7dab159f99.jpg', '2022-01-19 09:32:28');
 
 -- --------------------------------------------------------
 
@@ -70,7 +75,7 @@ CREATE TABLE `products` (
   `user_id` int(11) NOT NULL,
   `gambar` varchar(100) NOT NULL,
   `sold` int(11) NOT NULL DEFAULT 0,
-  `deskripsi` text NOT NULL DEFAULT 'Tidak ada deskripsi'
+  `deskripsi` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -78,17 +83,80 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `product_code`, `product_name`, `product_price`, `category`, `stok`, `user_id`, `gambar`, `sold`, `deskripsi`) VALUES
-(3, 'PD_616ea6b39b367', 'wow3', 1000, 'fashion', 4, 7, 'default.jpg', 5, 'Tidak ada deskripsi'),
-(4, 'PD_616ea6de492ab', 'wow4', 9000, 'fashion', 9, 7, 'default.jpg', 0, 'Tidak ada deskripsi'),
-(10, 'PD_616ea710ebf88', 'baju anak', 90000, 'fashion', 0, 7, 'default.jpg', 9, 'tidak ada deskirpsi'),
-(11, 'PD_616ea71e93261', 'pisau pembunuh', 132000, 'alat masak', 2, 7, 'default.jpg', 10, 'tidak ada deskirpsi'),
-(29, 'PD_616eee2449417', 'minyak alamiyah', 15000, 'fashion', 9, 6, '61a720e35622d.jpg', 0, 'tidak ada deskripsi'),
-(31, 'PD_616ef0008d1fd', 'produk admin', 20000, 'fashion', 9, 6, '616ef0008d209.jpg', 0, 'tidak ada deskripsi'),
-(32, 'PD_617004598134a', 'Sepatu Vans', 15000, 'fashion', 9, 6, '617004598135c.jpg', 0, 'tidak ada deskripsi'),
-(33, 'PD_61751259e7cd9', 'minyak wangi', 30000, 'perkakas', 9, 14, '61751259e7ce9.jpg', 0, 'tidak ada deskripsi'),
-(34, 'PD_6180ecd585ff5', 'Set Muslim', 250000, 'fashion', 9, 6, '6180ecd59fc1e.jpg', 0, 'produk set muslim pilihna umat muslim'),
-(35, 'PD_6180ed1bc9d93', 'Set ngedate perempuan', 290000, 'fashion', 8, 6, '6180ed1bc9da5.jpg', 0, 'tidak ada deskripsi'),
-(36, 'PD_6180ed4046be1', 'baju celana imut', 450000, 'fashion', 8, 6, '6180ed4046bf0.jpg', 0, 'tidak ada deskripsi');
+(1, 'PD_61be999042f70', 'Sakura Blouse', 89000, 'fashion', 0, 17, '61be999042f79.jpg', 25, 'tidak ada deskripsi'),
+(2, 'PD_61be99d80fed4', 'Kemeja Wanita', 65000, 'fashion', 0, 17, '61be99d80fee0.jpg', 50, 'kemeja kekinian'),
+(3, 'PD_61be9a06d405f', 'Cardigan Rajut', 45000, 'fashion', 0, 17, '61be9a06d406b.jpg', 35, 'tidak ada deskripsi'),
+(4, 'PD_61be9a41daf65', 'Atasan Crop', 50000, 'fashion', 50, 17, '61be9a41daf6f.jpg', 86, 'tidak ada deskripsi'),
+(5, 'PD_61be9a722c226', 'Casual Blouse', 90000, 'fashion', 20, 17, '61be9a722c235.jpg', 0, 'tidak ada deskripsi'),
+(6, 'PD_61be9aa355f26', 'Kulot Rayon', 60000, 'fashion', 30, 17, '61be9aa355f31.jpg', 0, 'tidak ada deskripsi'),
+(7, 'PD_61be9b0378567', 'Boyfriend Jeans Wanita', 105000, 'fashion', 30, 17, '61be9b0378574.jpg', 0, 'tidak ada deskripsi'),
+(8, 'PD_61be9b3982327', 'Kulot Bahan', 75000, 'fashion', 12, 17, '61be9b3982332.jpg', 8, 'tidak ada deskripsi'),
+(9, 'PD_61be9b6b983ef', 'Jogger Pants Wanita', 100000, 'fashion', 29, 17, '61be9b6b983fc.jpg', 1, 'tidak ada deskripsi'),
+(10, 'PD_61be9b961a4e4', 'Rok Rumbai', 80000, 'fashion', 20, 17, '61be9b961a4ef.jpg', 40, 'tidak ada deskripsi'),
+(11, 'PD_61be9c22e97c2', 'Hoodie Pria', 75000, 'fashion', 25, 17, '61be9c22e97cf.jpg', 0, 'tidak ada deskripsi'),
+(12, 'PD_61be9c4c02ee9', 'Crewneck ', 95000, 'fashion', 30, 17, '61be9c4c02ef3.jpg', 0, 'tidak ada deskripsi'),
+(13, 'PD_61be9ca8b2861', 'Kaos Putih Pria', 50000, 'fashion', 30, 17, '61be9ca8b288c.jpg', 0, 'tidak ada deskripsi'),
+(14, 'PD_61be9cd26b677', 'Kaos Hitam Pria', 50000, 'fashion', 30, 17, '61be9cd26b681.jpg', 0, 'tidak ada deskripsi'),
+(15, 'PD_61be9cfb07f6c', 'Kemeja Pria', 60000, 'fashion', 25, 17, '61be9cfb07f76.jpg', 0, 'tidak ada deskripsi'),
+(16, 'PD_61be9d29aa841', 'Jogger Pants Pria', 95000, 'fashion', 35, 17, '61be9d29aa84b.jpg', 0, 'tidak ada deskripsi'),
+(17, 'PD_61be9d51e29b4', 'Kargo Pants', 85000, 'fashion', 30, 17, '61be9d51e29be.jpg', 0, 'tidak ada deskripsi'),
+(18, 'PD_61be9d8e22bac', 'Jeans Pria', 110000, 'fashion', 30, 17, '61be9d8e22bbd.jpg', 0, 'tidak ada deskripsi'),
+(19, 'PD_61be9dc2c06e4', 'Celana Pendek Jeans Pria', 95000, 'fashion', 20, 17, '61be9dc2c06ef.jpg', 0, 'tidak ada deskripsi'),
+(20, 'PD_61be9dedc185d', 'Celana Pendek Pria', 65000, 'fashion', 25, 17, '61be9dedc186a.jpg', 0, 'tidak ada deskripsi'),
+(21, 'PD_61beb0191df51', 'Gunting Baja', 50000, 'fashion', 1, 18, '61beb0191df5c.jpg', 10, 'Gunting untuk memotong baja ringan'),
+(22, 'PD_61beb0711c3fc', 'Gergaji Besi Kecil', 35000, 'perkakas', 10, 18, '61beb0711c406.jpg', 0, 'Gergaji untuk memotong pipa'),
+(23, 'PD_61beb09a7500d', 'Gergaji Besi', 40000, 'perkakas', 10, 18, '61beb09a7501e.jpg', 0, 'Gergaji untuk memotong kayu'),
+(24, 'PD_61beb0c9e0780', 'Palu', 10000, 'perkakas', 10, 18, '61beb0c9e078a.jpg', 0, 'Palu untuk memasang paku'),
+(25, 'PD_61beb0f7a6807', 'Tang', 7000, 'perkakas', 10, 18, '61beb0f7a6816.jpg', 0, 'Tang untuk mengencangkan kawat'),
+(26, 'PD_61beb127e59d4', 'Senter', 25000, 'perkakas', 10, 18, '61beb127e59de.jpg', 0, 'Senter untuk penerangan saat bekerja di malam hari'),
+(27, 'PD_61beb167c9d97', 'Solder', 17500, 'perkakas', 10, 18, '61beb167c9da6.jpg', 0, 'Solder untuk menyambung kabel dan kelistrikan lainnya'),
+(28, 'PD_61beb1d0c523e', 'Obeng Minus', 8000, 'perkakas', 10, 18, '61beb1d0c524d.jpg', 0, 'Obeng minus kuning'),
+(29, 'PD_61beb219ba267', 'Obeng Plus', 8000, 'perkakas', 9, 18, '61beb219ba277.jpg', 1, 'Obeng Plus Hijau'),
+(30, 'PD_61beb28fcbd7b', 'Obeng Tespen', 12500, 'perkakas', 10, 18, '61beb28fcbd86.jpg', 0, 'Obeng untuk cek aliran listrik'),
+(31, 'PD_61beb2e08b265', 'Pahat Kayu ', 60000, 'perkakas', 10, 18, '61beb2e08b272.jpg', 0, 'Pahat Kayu Set 3 PCS'),
+(32, 'PD_61beb337ed230', 'Cutter', 5000, 'perkakas', 4998, 18, '61beb337ed23b.jpg', 2, 'Cutter kecil untuk potong kertas atau kardus'),
+(33, 'PD_61beb37bba0e4', 'Bor Listrik', 400000, 'perkakas', 10, 18, '61beb37bba0f1.jpg', 0, 'Bor menggunakan listrik sebagai daya, untuk melubangi tembok ataupun kayu'),
+(34, 'PD_61beb39e71e1d', 'Cetok Lancip', 30000, 'perkakas', 10, 18, '61beb39e71e2c.jpg', 0, 'Cetok semen lancip'),
+(35, 'PD_61beb3dd4fecb', 'Gerinda Tangan', 450000, 'perkakas', 5, 18, '61beb3dd4fed8.png', 5, 'Gerinda tangan menggunakan listrik sebagai daya, untuk memotong besi'),
+(36, 'PD_61beb421247bd', 'Kuas Cat', 10000, 'perkakas', 10, 18, '61beb421247c5.jpg', 0, 'Kuas cat berukuran 3 inci'),
+(37, 'PD_61beb44c5e700', 'Kunci Inggris', 50000, 'perkakas', 10, 18, '61beb44c5e709.jpg', 0, 'Kunci serbaguna untuk membuka segala ukuran baut'),
+(38, 'PD_61beb48d65690', 'Meteran roll', 25000, 'perkakas', 5, 18, '61beb48d656a3.jpg', 5, 'Meteran roll sepanjang 10m'),
+(39, 'PD_61beb4b3ae078', 'Roller cat', 20000, 'perkakas', 10, 18, '61beb4b3ae081.jpg', 0, 'Roller untuk cat tembok'),
+(40, 'PD_61beb4d92d04d', 'Waterpass', 55000, 'perkakas', 10, 18, '61beb4d92d059.jpg', 0, 'Alat ukur keseimbangan bangunan'),
+(41, 'PD_61befc5f93252', 'Panic Dutch Oven 24cm', 75000, 'alat masak', 3, 20, '61befc5f9325b.jpg', 0, 'Panci oven dengan diameter lebar 24cm'),
+(42, 'PD_61befd1143ba1', 'Panci wajan HC 30cm', 65000, 'alat masak', 2, 20, '61befd1143bac.jpg', 0, 'Wajan stainless steel HC 30cm'),
+(43, 'PD_61befdab149ed', 'Wajan ', 85000, 'alat masak', 3, 20, '61befdab149f8.jpg', 0, 'Wajan anti lengket 3set'),
+(45, 'PD_61befe8c00a30', 'Blender', 225000, 'alat masak', 5, 20, '61befe8c00a3c.jpg', 0, 'Bolde super Blend'),
+(46, 'PD_61befeff3e5ed', 'Sendok takar ', 65000, 'alat masak', 7, 20, '61befeff3e5ff.jpg', 0, 'Sendok cup takar stainless steel 5pcs'),
+(47, 'PD_61beff8d9e403', 'Sendok', 20000, 'alat masak', 10, 20, '61beff8d9e411.jpg', 0, 'Sendok masak '),
+(48, 'PD_61bf0051787c0', 'Oven ', 1125000, 'alat masak', 4, 20, '61bf0051787cb.jpg', 0, 'Oven listrik '),
+(49, 'PD_61bf0095ba01b', 'Blender Juice ', 80000, 'alat masak', 3, 20, '61bf0095ba024.jpg', 0, 'Juice blender portable '),
+(50, 'PD_61bf00e49b2c0', 'Mixer', 95000, 'alat masak', 7, 20, '61bf00e49b2cb.jpg', 0, 'Mixer berdiri '),
+(51, 'PD_61bf0146440bd', 'Nampan stainless ', 30000, 'alat masak', 9, 20, '61bf0146440cc.jpg', 0, 'Nampan stainless steel  30X40'),
+(52, 'PD_61bf019a1660c', 'Panci susun ', 145000, 'alat masak', 7, 20, '61bf019a16624.jpeg', 0, 'Panci susun premium '),
+(53, 'PD_61bf020a764b2', 'Pisau ', 70000, 'alat masak', 9, 20, '61bf020a764bb.jpg', 0, 'Pisau daging '),
+(54, 'PD_61bf02969977f', 'Pisau ', 90000, 'alat masak', 11, 20, '61bf029699788.jpg', 0, 'Pisau dapur 5 set'),
+(55, 'PD_61bf03568de9a', 'Spatula stainless ', 55000, 'alat masak', 6, 20, '61bf03568dea4.jpg', 0, 'Spatula stainless steel  '),
+(56, 'PD_61bf03bd23efd', ' Mixer', 130000, 'alat masak', 5, 20, '61bf03bd23f0a.jpg', 0, 'Stand mixer cusimax'),
+(57, 'PD_61bf069d0ce13', 'Kompor ', 225000, 'alat masak', 2, 20, '61bf069d0ce21.jpg', 0, 'Kompor gas rinnai 2tungku'),
+(59, 'PD_61bf079220c6f', 'Parutan ', 22000, 'alat masak', 3, 20, '61bf079220c7b.jpg', 0, 'Parutan kelapa stainless steel '),
+(60, 'PD_61bf08940ae9f', 'Rice cooker', 312000, 'alat masak', 4, 20, '61bf08940aeab.jpg', 0, 'Rice cooker sencor '),
+(61, 'PD_61bfdda809256', 'Talenan ', 22000, 'alat masak', 9, 20, '61bfdda809260.png', 0, 'Talenan kayu halus persegi panjang '),
+(62, 'PD_61bfde050a0d7', 'Cobek ', 33000, 'alat masak', 13, 20, '61bfde050a0e8.jpg', -1, 'Cobek merapi 25cm'),
+(63, 'PD_61e24e5e35732', 'Celana Pendek Wanita', 85000, 'fashion', 50, 17, '61e24e5e3573c.jpg', 0, 'tidak ada deskripsi');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `request_seller`
+--
+
+CREATE TABLE `request_seller` (
+  `request_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `status` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -132,21 +200,32 @@ CREATE TABLE `tb_orders` (
 --
 
 INSERT INTO `tb_orders` (`order_id`, `order_code`, `order_date`, `payment_date`, `status`, `user_id`, `total`, `seller_id`) VALUES
-(48, 'ORD_619dd89b8eb82', '2021-11-24 06:15:55', NULL, 'barang diterima', 9, 1480000, 6),
-(49, 'ORD_619e1e2548b9e', '2021-11-24 11:12:37', NULL, 'barang diterima', 9, 900000, 6),
-(50, 'ORD_619e1fdabcf48', '2021-11-24 11:19:54', '2021-11-24 11:23:37', 'barang diterima', 9, 450000, 6),
-(51, 'ORD_619e2714b7218', '2021-11-24 11:50:44', '2021-11-24 11:54:00', 'barang diterima', 9, 450000, 6),
-(52, 'ORD_619e28c11c56f', '2021-11-24 11:57:53', '2021-11-24 12:03:24', 'barang diterima', 9, 450000, 6),
-(53, 'ORD_619e29865280d', '2021-11-24 12:01:10', '2021-11-24 12:03:18', 'barang diterima', 9, 450000, 6),
-(54, 'ORD_619e29d75f0fd', '2021-11-24 12:02:31', '2021-11-24 12:03:15', 'barang diterima', 9, 450000, 6),
-(55, 'ORD_61a7211d1d428', '2021-12-01 07:15:41', '2021-12-01 07:19:17', 'barang diterima', 9, 580000, 6),
-(56, 'ORD_61a7273a23c5f', '2021-12-01 07:41:46', NULL, 'dibatalkan', 9, 450000, 6),
-(57, 'ORD_61af7aa5a6132', '2021-12-07 15:15:49', '2021-12-07 15:49:02', 'barang diterima', 9, 450000, 6),
-(58, 'ORD_61b17d565fbf9', '2021-12-09 03:51:50', NULL, 'dibatalkan', 15, 132000, 7),
-(59, 'ORD_61b17e1d06409', '2021-12-09 03:55:09', '2021-12-09 03:58:08', 'barang dikirim', 15, 740000, 6),
-(60, 'ORD_61b17e1d60db5', '2021-12-09 03:55:09', NULL, 'menunggu konfirmasi', 15, 30000, 14),
-(61, 'ORD_61b2efa747bd0', '2021-12-10 06:11:51', '2021-12-10 06:15:45', 'barang diterima', 9, 1739000, 7),
-(62, 'ORD_61b2efa779c44', '2021-12-10 06:11:51', NULL, 'menunggu konfirmasi', 9, 75000, 6);
+(1, 'ORD_61c2b9d53ee27', '2021-12-22 05:40:03', '2022-01-02 13:54:36', 'barang diterima', 21, 2675000, 18),
+(2, 'ORD_61caae59e3937', '2021-12-28 06:29:13', '2022-01-02 13:54:32', 'barang diterima', 21, 105000, 18),
+(3, 'ORD_61d1aca3d071c', '2022-01-02 13:47:47', '2022-01-02 13:54:02', 'barang diterima', 21, 378000, 17),
+(4, 'ORD_61d1afdf9b0eb', '2022-01-02 14:01:35', NULL, 'dibatalkan', 21, 25000, 18),
+(5, 'ORD_61d1b53c7b5c8', '2022-01-02 14:24:27', NULL, 'dibatalkan', 17, 80000, 18),
+(6, 'ORD_61d53fde03527', '2022-01-05 06:52:45', '2022-01-05 06:58:13', 'barang diterima', 21, 100000, 18),
+(7, 'ORD_61e24b3ae7ca0', '2022-01-15 04:18:55', NULL, 'dibatalkan', 22, 75000, 18),
+(8, 'ORD_61e24b70d6e13', '2022-01-15 04:19:49', '2022-01-15 04:48:32', 'barang diterima', 22, 243000, 17),
+(9, 'ORD_61e24c9a5b015', '2022-01-15 04:24:47', NULL, 'dibatalkan', 23, 60000, 17),
+(10, 'ORD_61e24c9a5c236', '2022-01-15 04:24:47', NULL, 'dibatalkan', 23, 25000, 18),
+(11, 'ORD_61e24d26d63b4', '2022-01-15 04:27:07', NULL, 'dibatalkan', 22, 33000, 20),
+(12, 'ORD_61e24d2a93075', '2022-01-15 04:27:11', NULL, 'dibatalkan', 23, 50000, 17),
+(13, 'ORD_61e24d2a93fab', '2022-01-15 04:27:11', NULL, 'menunggu pembayaran', 23, 25000, 18),
+(14, 'ORD_61e2641c9704c', '2022-01-15 06:05:05', '2022-01-15 06:08:24', 'barang diterima', 21, 5300000, 17),
+(15, 'ORD_61e40a0304a5d', '2022-01-16 12:05:07', '2022-01-16 12:07:56', 'barang dikirim', 21, 6872000, 17),
+(16, 'ORD_61e65aaa71bbc', '2022-01-18 06:13:40', '2022-01-18 06:17:52', 'menunggu pengiriman', 24, 100000, 17),
+(17, 'ORD_61e65aaa7478e', '2022-01-18 06:13:40', '2022-01-18 06:15:36', 'barang diterima', 24, 5000, 18),
+(18, 'ORD_61e6602bd2e05', '2022-01-18 06:37:10', NULL, 'menunggu konfirmasi', 21, 2050000, 17),
+(19, 'ORD_61e6602c194c1', '2022-01-18 06:37:10', NULL, 'menunggu konfirmasi', 24, 2050000, 17),
+(20, 'ORD_61e66112d53b9', '2022-01-18 06:41:01', NULL, 'menunggu konfirmasi', 24, 1600000, 17),
+(21, 'ORD_61e66116e0c17', '2022-01-18 06:41:05', NULL, 'menunggu pembayaran', 21, 2200000, 17),
+(22, 'ORD_61e7d3d764212', '2022-01-19 09:02:54', NULL, 'dibatalkan', 22, 50000, 17),
+(23, 'ORD_61e7d619d8b2c', '2022-01-19 09:12:33', NULL, 'dibatalkan', 22, 1600000, 17),
+(24, 'ORD_61e7d90f0169c', '2022-01-19 09:25:10', NULL, 'dibatalkan', 22, 2450000, 17),
+(25, 'ORD_61e7da3663eca', '2022-01-19 09:30:05', NULL, 'dibatalkan', 22, 35000, 18),
+(26, 'ORD_61e7da730af13', '2022-01-19 09:31:06', '2022-01-19 09:32:28', 'barang diterima', 22, 8000, 18);
 
 -- --------------------------------------------------------
 
@@ -168,25 +247,42 @@ CREATE TABLE `tb_order_detail` (
 --
 
 INSERT INTO `tb_order_detail` (`order_id`, `product_id`, `qty`, `sub_total`, `seller_id`, `temp_id`) VALUES
-(48, 35, 2, 580000, 6, 40),
-(48, 36, 2, 900000, 6, 41),
-(49, 36, 2, 900000, 6, 42),
-(50, 36, 1, 450000, 6, 43),
-(51, 36, 1, 450000, 6, 44),
-(52, 36, 1, 450000, 6, 45),
-(53, 36, 1, 450000, 6, 46),
-(54, 36, 1, 450000, 6, 47),
-(55, 35, 2, 580000, 6, 48),
-(56, 36, 1, 450000, 6, 49),
-(57, 36, 1, 450000, 6, 50),
-(58, 11, 1, 132000, 7, 51),
-(59, 35, 1, 290000, 6, 52),
-(59, 36, 1, 450000, 6, 53),
-(60, 33, 1, 30000, 14, 54),
-(61, 3, 5, 5000, 7, 55),
-(61, 10, 9, 810000, 7, 56),
-(61, 11, 7, 924000, 7, 57),
-(62, 29, 5, 75000, 6, 58);
+(1, 21, 6, 300000, 18, 1),
+(1, 35, 5, 2250000, 18, 2),
+(1, 38, 5, 125000, 18, 3),
+(2, 21, 2, 100000, 18, 4),
+(2, 32, 1, 5000, 18, 5),
+(3, 1, 2, 178000, 17, 6),
+(3, 4, 4, 200000, 17, 7),
+(4, 38, 1, 25000, 18, 8),
+(5, 24, 8, 80000, 18, 9),
+(6, 21, 2, 100000, 18, 10),
+(7, 22, 1, 35000, 18, 11),
+(7, 23, 1, 40000, 18, 12),
+(8, 1, 2, 178000, 17, 13),
+(8, 2, 1, 65000, 17, 14),
+(9, 6, 1, 60000, 17, 15),
+(10, 26, 1, 25000, 18, 16),
+(11, 62, 1, 33000, 20, 17),
+(12, 4, 1, 50000, 17, 18),
+(13, 26, 1, 25000, 18, 19),
+(14, 2, 50, 3250000, 17, 20),
+(14, 4, 41, 2050000, 17, 21),
+(15, 1, 23, 2047000, 17, 22),
+(15, 2, 50, 3250000, 17, 23),
+(15, 3, 35, 1575000, 17, 24),
+(16, 9, 1, 100000, 17, 25),
+(17, 32, 1, 5000, 18, 26),
+(18, 4, 41, 2050000, 17, 27),
+(19, 4, 41, 2050000, 17, 28),
+(20, 10, 20, 1600000, 17, 29),
+(21, 8, 8, 600000, 17, 30),
+(21, 10, 20, 1600000, 17, 31),
+(22, 4, 1, 50000, 17, 32),
+(23, 10, 20, 1600000, 17, 33),
+(24, 4, 49, 2450000, 17, 34),
+(25, 22, 1, 35000, 18, 35),
+(26, 29, 1, 8000, 18, 36);
 
 -- --------------------------------------------------------
 
@@ -208,17 +304,15 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `password`, `full_name`, `status_id`, `saldo`) VALUES
-(5, 'dekjun', '$2y$10$XcYpvSe/1OH1cDyjkrwat.IvbMlLVNR/U443ad.v9MlWisreMRlMe', 'dekjun kontol', 1, 0),
-(6, 'admin', '$2y$10$zM.vhCn/cpE1MhYI1KfOoe6wFMIb.w5g5JmusaT3rGD8D41wNsUha', 'admin 2', 2, 100000),
-(7, 'admin2', '$2y$10$7Cjnm.RppJTuYl6vnX7fIeFFTW1c.nwlEIx8O6MVnIUT.EkO1MIoq', 'admin', 2, 0),
-(8, 'dennykd', '$2y$10$l2HYnsH41LSXHDvaE2cquumW.0n48Lgugw.LqqqNNqgcAWF4nDLlC', 'kadek deny', 2, 2147483647),
-(9, 'user', '$2y$10$T05.pcvcvOY.G2wGdRf8CuooroQY1otHAc0hJfS8bHQo3CzoFbkaW', 'user', 1, 10000),
-(10, 'administrator', '$2y$10$3nO7z5BeoSiozJtqp/X4CeED2e03pJgY4Qtlm4kWhAQrOuAQ80vFO', 'administrator Febryntara', 3, 0),
-(11, 'lord', '$2y$10$d3RVSBLWJhMK7C4pcFtW7uV5RIEJgQNa.1OynPwXu7gxFlBO5AxAK', 'lord', 1, 0),
-(12, 'pntx', '$2y$10$eZ5jVJN9gFpTAZVI/kRB6.LPyLZDjx.k3CTJCtUORLPSV1dZ9YYRC', 'pntx', 1, 0),
-(13, 'febryntara', '$2y$10$uY/0RbKI1UJfj.vX5Cd8weQUc4WLPZwms4hzZAGQN59rcaUcnqn4K', 'Febryntara', 1, 0),
-(14, 'penjual', '$2y$10$ePO0.K9lNuSK3fZGsYEN6Oc4dRN9/H.fVwWoW1pt7cIt/wZR7pjuy', 'penjual', 2, 0),
-(15, 'berith', '$2y$10$8RHw.H.OYqmRK3dOnze3Ju5NDuqw7bn7y3FEg.Hz/PvczauXhWXJS', 'berith', 1, 0);
+(16, 'febryntara', '$2y$10$H.Gni9Vw7z5h9ccamN98.eTyQtf8kP6RFUiDQfTNsOCG3WmcEPWqO', 'febryntara', 1, 0),
+(17, 'nisasintiaa', '$2y$10$9O4f/Yvr9YZd.5R.5DIMSuPZdzPo7KsBkglB8ok89kQ4RlEQR84p2', 'nisa sintia', 2, 0),
+(18, 'apjseller', '$2y$10$HBDDsEXtNXHOd.Wl/5SRHeLxlSWn4XFKgyida3HHK1WPKn3kB25OK', 'apj', 2, 0),
+(19, 'administrator', '$2y$10$IGXzXHeYTm/vO4411G.JuuQzItlceV5Tjszr4W./uMpMoEZaVHWwK', 'administrator', 3, 0),
+(20, 'raj', '$2y$10$PHcW.nqEBn/Ta6iqpB8J8uLULHdRe/sdpZu1DpkfJRO9bpa/h3Zmq', 'rajeesh rauter', 2, 0),
+(21, 'febry', '$2y$10$Efm.8FO5QjLR/Rd8hN0n1.pSj8j/UDI1lb110BrJDEjnrgA75Ky8e', 'buyerfebry', 1, 0),
+(22, 'panpan', '$2y$10$7behF15s2Gxpd.V0nJ23WuvfxB0uU6XQ684XchA1AcImcmpW4Nl/m', 'panpan', 1, 0),
+(23, 'Raj rauter', '$2y$10$TllJPB8ziCDDyq4IH0wXPuD9x8nFrD9BJCiaewJ2GwtztblItqDg6', 'Rajeesh ', 1, 0),
+(24, 'dekjun', '$2y$10$M.TuYd8Kky2RoPiktxE61eChKIsegb83FOvJtD61XmvAh2fnumC.a', 'I Kadek Juniarta', 1, 0);
 
 --
 -- Indexes for dumped tables
@@ -238,6 +332,13 @@ ALTER TABLE `payments`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`product_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indeks untuk tabel `request_seller`
+--
+ALTER TABLE `request_seller`
+  ADD PRIMARY KEY (`request_id`),
   ADD KEY `user_id` (`user_id`);
 
 --
@@ -276,74 +377,43 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT untuk tabel `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+
+--
+-- AUTO_INCREMENT untuk tabel `request_seller`
+--
+ALTER TABLE `request_seller`
+  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `status_user`
 --
 ALTER TABLE `status_user`
-  MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_orders`
 --
 ALTER TABLE `tb_orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_order_detail`
 --
 ALTER TABLE `tb_order_detail`
-  MODIFY `temp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `temp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
---
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
---
-
---
--- Ketidakleluasaan untuk tabel `payments`
---
-ALTER TABLE `payments`
-  ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`from_uid`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `payments_ibfk_2` FOREIGN KEY (`to_uid`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `payments_ibfk_3` FOREIGN KEY (`order_id`) REFERENCES `tb_orders` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ketidakleluasaan untuk tabel `products`
---
-ALTER TABLE `products`
-  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ketidakleluasaan untuk tabel `tb_orders`
---
-ALTER TABLE `tb_orders`
-  ADD CONSTRAINT `tb_orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ketidakleluasaan untuk tabel `tb_order_detail`
---
-ALTER TABLE `tb_order_detail`
-  ADD CONSTRAINT `tb_order_detail_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `tb_orders` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `tb_order_detail_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ketidakleluasaan untuk tabel `users`
---
-ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`status_id`) REFERENCES `status_user` (`status_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,5 +1,6 @@
 <?php
 $database = mysqli_connect("localhost", "root", "", "tokomedia3");
+// var_dump($database);
 
 function getResult($query)
 {
@@ -164,19 +165,23 @@ function insertImgPayment($data)
     $payment_status = "menunggu konfirmasi pembayaran";
     $image = uploadImage("payment");
 
+
+    $query = "INSERT INTO payments VALUES (NULL, $order_id, $from_id, $to_id, $amount, '$payment_status', '$image', NULL)";
+    // var_dump($query);
     if (!$image) {
         $error = -1;
     } else {
-        mysqli_query($database, "INSERT INTO payments VALUES (NULL, $order_id, $from_id, $to_id, $amount, '$payment_status', '$image', NULL)");
+        mysqli_query($database, $query);
         $error = mysqli_affected_rows($database);
     }
-
+    // var_dump($error);
     if ($error >= 1) {
         echo "<script>alert('Bukti bayar berhasil diupload!')</script>";
         $result = mysqli_query($database, "UPDATE tb_orders SET status = 'pembayaran di proses' WHERE order_id = $order_id");
     } else {
         echo "<script>alert('Bukti bayar gagal diupload!')</script>";
     }
+    // var_dump($error);
     echo "<script>window.location = '../pages/dashboard?tab=pesanan&menu=dikemas'</script>";
 }
 
@@ -189,9 +194,6 @@ function decreaseStok($order_id)
         $updatedSold = getResult("SELECT * FROM products WHERE product_id = " . $action['product_id'])[0]['sold'] + $action['qty'];
         $doUpdate = mysqli_query($database, "UPDATE products SET stok = $updatedStok, sold = $updatedSold WHERE product_id = " . $action['product_id']);
     }
-    var_dump($updatedSold);
-    var_dump($updatedStok);
-    var_dump($doUpdate);
 }
 function goBackStok($order_id)
 {
@@ -202,9 +204,6 @@ function goBackStok($order_id)
         $updatedSold = getResult("SELECT * FROM products WHERE product_id = " . $action['product_id'])[0]['sold'] - $action['qty'];
         $doUpdate = mysqli_query($database, "UPDATE products SET stok = $updatedStok, sold = $updatedSold WHERE product_id = " . $action['product_id']);
     }
-    var_dump($updatedSold);
-    var_dump($updatedStok);
-    var_dump($doUpdate);
 }
 
 function orderProcess($array, $buyer_id)

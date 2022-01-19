@@ -22,7 +22,7 @@ if ($error > 0){
     echo "<script>alert('". $product['product_name'] ." sudah ditambahkan!'".")</script>";
 } else {
     echo "<script>alert('". $product['product_name'] ." berhasil ditambahkan!')</script>";
-    $_SESSION['cart'][] = $product;
+    $_SESSION['cart'][] = $product['product_id'];
 }
 if(isset($_GET['from'])== 'products'){
     echo "<script>window.location = '../?page=products&tab=semua'</script>";
