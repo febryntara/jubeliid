@@ -1,12 +1,12 @@
-<?php 
-    if(isset($_GET['id'])){
-        $id = $_GET['id'];
-    } else {
-        header("location:./");
-    }
-    $product = getResult("SELECT * FROM products WHERE product_id = $id")[0];
-    $seller = getResult("SELECT full_name FROM users WHERE user_id =".$product['user_id'])[0];
-    $infoUser = $_SESSION['loginData'];
+<?php
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+} else {
+    header("location:./");
+}
+$product = getResult("SELECT * FROM products WHERE product_id = $id")[0];
+$seller = getResult("SELECT full_name FROM users WHERE user_id =" . $product['user_id'])[0];
+$infoUser = $_SESSION['loginData'] ?? null;
 ?>
 <div class="detail-container ">
     <img class="detail-main-image" src="./assets/img/<?= $product['gambar'] ?>" alt="<?= $product['product_name'] ?>">
